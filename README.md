@@ -1,4 +1,4 @@
-# Projet techique SupDeVinci DevOps B2A 2023
+# Projet techique SupDeVinci DevOps MSI 4-23 DO A : Groupe 1
 
 ## Pré Requis 
 
