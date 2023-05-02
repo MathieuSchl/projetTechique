@@ -15,5 +15,4 @@ helm install wordpress oci://registry-1.docker.io/bitnamicharts/wordpress -f ./W
 puis on forward le port de workdpress avec la commande suivante 
 ```
 kubectl port-forward --namespace default svc/wordpress 80:80
-
 ```
