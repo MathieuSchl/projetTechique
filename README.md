@@ -18,6 +18,7 @@ Pour faire les installations, il est nécessaire d'avoir les prérequis suivants
 ```
 https://github.com/MathieuSchl/projetTechique.git
 ```
+- On oublie pas de folow et cliquer sur la cloche pour avoir les dernières nouveautés de mathieu ! ;)
 - Avoir un cluster Kubernetes
 - Avoir debian à jour
 
