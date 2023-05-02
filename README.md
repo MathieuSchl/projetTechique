@@ -1,33 +1,55 @@
-0/ Pré Requis 
+# Projet techique SupDeVinci DevOps B2A 2023
 
-- Avoir un cluster Kub 
-- Avoir debian à jour :    
+## Pré Requis 
+
+Pour faire les installations, il est nécessaire d'avoir les prérequis suivants :
+
+- Avoir un cluster Kubernetes
+- Avoir debian à jour
+
 ```
 sudo apt-get update
 ```
 
-1/ Installation de HELM 
+## Installation de HELM 
 
-- Installez le paquet snapd en exécutant la commande suivante : 
+- Installez le paquet `snapd` en exécutant la commande suivante : 
 
-  sudo apt-get install snapd
-  
+```
+sudo apt-get install snapd
+```
+
 - Installez Helm en utilisant la commande suivante : 
 
-  sudo snap install helm --classic
+```
+sudo snap install helm --classic
+```
 
 - Pour vérifier que Helm a été correctement installé, exécutez la commande suivante pour afficher la version de Helm : 
 
-  helm version
-
-2/ Installation GALERA :
+```
+helm version
+```
+## Installation GALERA :
 
 - Lancez l'installation de GALERA via la commande suivante : 
 
-helm install my-galera oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Galera/values.yaml
+```
+helm install galera oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Galera/values.yaml
+```
 
-3/ Installation WORDPRESS :
+## Installation WORDPRESS :
 
-- lancez la commande suivante pour lancer l'installation de WordPress :
+- Lancez la commande suivante pour lancer l'installation de WordPress :
 
-helm install my-release oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Wordpress/values.yaml
+```
+helm install galera oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Wordpress/values.yaml
+```
+
+## Paramétrage du port-forward
+
+Pour utiliser wordpress sur le port 80, lancer la commande :
+
+```
+kubectl port-forward --namespace default svc/wordpress 80:80
+```
