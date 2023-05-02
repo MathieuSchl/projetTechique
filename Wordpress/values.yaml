@@ -1,0 +1,12 @@
+service:
+    type:  "NodePort"
+wordpressUsername : "wordpress"
+wordpressPassword: "P@ssw0rd"
+mariadb:
+  enabled : false
+externalDatabase:
+  host: "galera-mariadb-galera.default.svc.cluster.local"
+  port: 3306
+  user: "root"
+  password: "P@ssw0rd"
+  database: "wordpress"
