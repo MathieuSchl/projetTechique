@@ -1,18 +1,25 @@
-# projetTechique
-on lance d'abord   galera via la commande suivante :
+1/ Installation de HELM 
 
-```
-helm install galera  oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Galera/values.yaml
-```
+- Installez le paquet snapd en exécutant la commande suivante : 
 
-puis on install  wordpress 
+  sudo apt-get install snapd
+  
+- Installez Helm en utilisant la commande suivante : 
 
+  sudo snap install helm --classic
 
-```
-helm install wordpress oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Wordpress/values.yaml
-```
+- Pour vérifier que Helm a été correctement installé, exécutez la commande suivante pour afficher la version de Helm : 
 
-puis on forward le port de workdpress avec la commande suivante 
-```
-kubectl port-forward --namespace default svc/wordpress 80:80
-```
+  helm version
+
+2/ Installation GALERA :
+
+- Lancez l'installation de GALERA via la commande suivante : 
+
+helm install my-galera oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Galera/values.yaml
+
+3/ Installation WORDPRESS :
+
+- lancez la commande suivante pour lancer l'installation de WordPress :
+
+helm install my-release oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Wordpress/values.yaml
