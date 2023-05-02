@@ -14,6 +14,10 @@
 
 Pour faire les installations, il est nécessaire d'avoir les prérequis suivants :
 
+- Faire un clone du repository :
+```
+https://github.com/MathieuSchl/projetTechique.git
+```
 - Avoir un cluster Kubernetes
 - Avoir debian à jour
 
