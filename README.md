@@ -30,7 +30,7 @@ sudo snap install helm --classic
 ```
 helm version
 ```
-## Installation GALERA :
+## Installation GALERA
 
 - Lancez l'installation de GALERA via la commande suivante : 
 
@@ -38,7 +38,7 @@ helm version
 helm install galera oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Galera/values.yaml
 ```
 
-## Installation WORDPRESS :
+## Installation WORDPRESS
 
 - Lancez la commande suivante pour lancer l'installation de WordPress :
 
@@ -48,7 +48,7 @@ helm install galera oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Word
 
 ## Paramétrage du port-forward
 
-Pour utiliser wordpress sur le port 80, lancer la commande :
+- Pour utiliser wordpress sur le port 80, lancer la commande :
 
 ```
 kubectl port-forward --namespace default svc/wordpress 80:80
