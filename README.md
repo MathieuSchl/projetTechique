@@ -1,3 +1,11 @@
+0/ Pré Requis 
+
+- Avoir un cluster Kub 
+- Avoir debian à jour :    
+```
+sudo apt-get update
+```
+
 1/ Installation de HELM 
 
 - Installez le paquet snapd en exécutant la commande suivante : 
