@@ -48,7 +48,7 @@ helm install wordpress oci://registry-1.docker.io/bitnamicharts/wordpress -f ./W
 
 ## Installation Minio 
 ```
-helm install my-release oci://registry-1.docker.io/bitnamicharts/minio -f ./Minio/values.yaml
+helm install minio oci://registry-1.docker.io/bitnamicharts/minio -f ./Minio/values.yaml
 ```
 
 ## Paramétrage du port-forward
