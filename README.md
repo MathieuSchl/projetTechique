@@ -1,9 +1,25 @@
+```
+  _                                    _       __ 
+ | |                                  | |     /_/ 
+ | |__    _ __    ___  __   __   ___  | |_    ___ 
+ | '_ \  | '__|  / _ \ \ \ / /  / _ \ | __|  / _ \
+ | |_) | | |    |  __/  \ V /  |  __/ | |_  |  __/
+ |_.__/  |_|     \___|   \_/    \___|  \__|  \___|
+                                                  
+ ```                                                                                                                     
+# Projet techique SupDeVinci DevOps MSI 4-23 DO A : Groupe 1
+
 # Projet techique SupDeVinci DevOps B2A 2023
 
 ## Pré Requis 
 
 Pour faire les installations, il est nécessaire d'avoir les prérequis suivants :
 
+- Faire un clone du repository :
+```
+https://github.com/MathieuSchl/projetTechique.git
+```
+- On oublie pas de folow et cliquer sur la cloche pour avoir les dernières nouveautés de mathieu ! ;)
 - Avoir un cluster Kubernetes
 - Avoir debian à jour
 
@@ -11,7 +27,7 @@ Pour faire les installations, il est nécessaire d'avoir les prérequis suivants
 sudo apt-get update
 ```
 
-## Installation de HELM 
+## Installation de HELM (PAS NECESSAIRE SUR AZURE)
 
 - Installez le paquet `snapd` en exécutant la commande suivante : 
 
@@ -43,7 +59,12 @@ helm install galera oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Gale
 - Lancez la commande suivante pour lancer l'installation de WordPress :
 
 ```
-helm install galera oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Wordpress/values.yaml
+helm install wordpress oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Wordpress/values.yaml
+```
+
+## Installation Minio 
+```
+helm install minio oci://registry-1.docker.io/bitnamicharts/minio -f ./Minio/values.yaml
 ```
 
 ## Paramétrage du port-forward
