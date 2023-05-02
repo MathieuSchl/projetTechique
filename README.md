@@ -21,7 +21,7 @@ Pour faire les installations, il est nécessaire d'avoir les prérequis suivants
 sudo apt-get update
 ```
 
-## Installation de HELM 
+## Installation de HELM (PAS NECESSAIRE SUR AZURE)
 
 - Installez le paquet `snapd` en exécutant la commande suivante : 
 
