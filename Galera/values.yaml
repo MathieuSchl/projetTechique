@@ -4,8 +4,3 @@
     type:  "NodePort"
   rootUser:
     password	: "P@ssw0rd"
-  db:
-    user: 'wordpress'
-    password : "P@sssw0rd"
-    name	: "wordpress"
-    

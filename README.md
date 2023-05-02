@@ -43,7 +43,12 @@ helm install galera oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Gale
 - Lancez la commande suivante pour lancer l'installation de WordPress :
 
 ```
-helm install galera oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Wordpress/values.yaml
+helm install wordpress oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Wordpress/values.yaml
+```
+
+## Installation Minio 
+```
+helm install my-release oci://registry-1.docker.io/bitnamicharts/minio -f ./Minio/values.yaml
 ```
 
 ## Paramétrage du port-forward
