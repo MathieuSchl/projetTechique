@@ -94,7 +94,7 @@ kubectl get services wordpress
 
 
 ## Création du blob storage
-#### Une fois connecter à azure, cherchez storage ou  stockage dans la barre de recherche  puis cliquez sur "comptes de stockage" ou "Storage Account"
+#### Une fois connecter à azure, cherchez storage ou  stockage dans la barre de recherche  puis cliquez sur `comptes de stockage` ou `Storage Account`
 ![](img/Azure/blob%20sotrage%201.png)
 
 #### Ensuite, renseigner le nom du blob, puis cliquer sur review
@@ -103,13 +103,13 @@ kubectl get services wordpress
 #### Enfin cliquer sur créer 
 ![](img/Azure/blob%20sotrage%203.png)
 
-#### Pour créer un conteneur dans ce storage account, cliquez sur "containers" puis sur `create` 
+#### Pour créer un conteneur dans ce storage account, cliquez sur `containers` puis sur `create` 
 ![](img/Azure/create%20container.png)
 
-#### A droite entrer un nom et sélectionner "blob" dans public accesss level  enfin cliquez sur create 
+#### A droite entrer un nom et sélectionner `blob` dans public accesss level  enfin cliquez sur create 
 ![](img/Azure/container%20creation%202.png) 
 
-#### Ensuite cliquer sur le storage account et aller dans la section "access key" ou "clé d'accès" puis afficher et copier la clé d'accès 
+#### Ensuite cliquer sur le storage account et aller dans la section `access key` ou `clé d'accès` puis afficher et copier la clé d'accès 
 ![](img/Azure/access%20keys.png)
 
 ## Jointure du blob à wordpress 
@@ -123,7 +123,7 @@ Cliquer sur `plugins` puis `add new`
 Ensuite dans la barre de recherche saisissez `Microsoft Azure Storage for WordPress` puis cliquer sur `Install Now`
 ![](img/Wordpress/install-plugin.jpg)
 
-Cliquer ensuite sur "Activate"
+Cliquer ensuite sur `Activate`
 ![](img/Wordpress/activate.jpg)
 
 ### Configuration du plugin 
@@ -133,7 +133,7 @@ On accède à la page de configuration d'azure en cliquant sur `Settings` pour s
 Dans la partie `Store Account Name` renseigner le nom du blob storage créé plus haut 
 ![](img/Wordpress/storeaccountName.jpg)
 
-Dans la partie "Store Account Key" renseigner le secret généré par azure   
+Dans la partie `Store Account Key` renseigner le secret généré par azure   
 ![](img/Wordpress/Store%20Account%20Key.jpg)
 
 Appuyer sur `entrer`, puis cliquez sur le conteneur créé précédemment
