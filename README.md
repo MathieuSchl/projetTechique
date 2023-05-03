@@ -6,7 +6,7 @@ Pour faire les installations, il est nécessaire d'avoir les prérequis suivants
 
 - Faire un clone du repository :
 ```
-https://github.com/MathieuSchl/projetTechique.git
+git clone https://github.com/MathieuSchl/projetTechique.git
 ```
 - Avoir un cluster Kubernetes 
 - Avoir debian à jour (uniquement en On-Prem)
@@ -101,6 +101,8 @@ ensuite utiliser les crédentials que l'on a renseigné plutôt
 ![](img/Wordpress/Admin.jpg)
 
 une fois connecté votre installation wordpress est fonctionelle 
+
+![](img/Wordpress/dahsboard.jpg)
 
 
 ## création du blob storage 
