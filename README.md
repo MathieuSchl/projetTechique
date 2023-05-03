@@ -17,13 +17,13 @@ sudo apt-get update
 
 ## Installation de HELM (PAS NECESSAIRE SUR AZURE)
 
-- Installez le paquet `snapd` en exécutant la commande suivante : 
+- Installer le paquet `snapd` en exécutant la commande suivante : 
 
 ```sh
 sudo apt-get install snapd
 ```
 
-- Installez Helm en utilisant la commande suivante : 
+- Installer Helm en utilisant la commande suivante : 
 
 ```sh
 sudo snap install helm --classic
@@ -35,20 +35,21 @@ sudo snap install helm --classic
 helm version
 ```
 ## Installation GALERA
-### édition du fichier values (Gallera)
-à la ligne 2, renseigner le mot de passe voulue pour l'utilisateur root de la DB :
+### Edition du fichier values (Gallera)
+Le fichier `values` est dans le dossier `gallera/values.yaml`
+A la ligne 2, renseigner le mot de passe voulue pour l'utilisateur root de la DB :
 ```yaml
     rootUser:
       password: "ChangeME"
 ```
 
-- Lancez l'installation de GALERA via la commande suivante : 
+- Lancer l'installation de GALERA via la commande suivante : 
 
 ```shell
 helm install galera oci://registry-1.docker.io/bitnamicharts/mariadb-galera -f ./Galera/values.yaml
 ```
 
-vous devriez voir un pod en running au bout de quelques minutes 
+Vous devriez voir un pod en running au bout de quelques minutes 
 ```shell
 kubectl get pods 
 ```
@@ -56,96 +57,88 @@ kubectl get pods
 
 ## Installation WORDPRESS
 
-### édition du fichier values (Wordpress)
+### Edition du fichier values (Wordpress)
 
-à la ligne 11 , renseignez le mot de passe que nous avons spcéifié plus haut pour [galllera](#édition-du-fichier-values-gallera)
+Le fichier `values` est dans le dossier `Wordpress/values.yaml`
+A la ligne 11 , renseigner le mot de passe que nous avons spécifié plus haut pour [gallera](#Edition-du-fichier-values-gallera)
 ```yaml
   password: "ChangeMe"
 ```
-puis a la ligne 4 renseifnez le mot de passe qui sera utilisé pour se connecter à l'interface admin de wordpress 
+Puis a la ligne 4, renseigner le mot de passe qui sera utilisé pour se connecter à l'interface admin de wordpress 
 ```yaml
 wordpressPassword: "ChangeME"
 ```
 
-- Lancez la commande suivante pour lancer l'installation de WordPress :
+- Lancer la commande suivante pour lancer l'installation de WordPress :
 
 ```shell
 helm install wordpress oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Wordpress/values.yaml
 ```
 
-## accéder à  wordpress 
-on récupère l'ip externe via la commande 
+## Accéder à  wordpress 
+On récupère l'ip externe via la commande 
 ```shell
 kubectl get services wordpress 
 ```
 ![](img/Azure/get-services.jpg)
 
-en vous connectant à l'adresse ,vous dezvriez avoir accès à la page suivante :
+#### En vous connectant à l'adresse, vous devriez avoir accès à la page suivante :
 ![](img/Wordpress/homePage.jpg)
 
-vous pouvez aussi vous connecter à l'interface  d'admin en  utilisant http://$ip-exxterne/admin
-ensuite utiliser les crédentials que l'on a renseigné plutôt  
+#### Vous pouvez aussi vous connecter à l'interface  d'admin en  utilisant `http://$ip-externe/admin`, ensuite utiliser les credentials que l'on a renseigné plutôt
 ![](img/Wordpress/Admin.jpg)
 
-une fois connecté votre installation wordpress est fonctionelle 
+#### Une fois connecté, votre installation Wordpress est fonctionnelle
 
 ![](img/Wordpress/dahsboard.jpg)
 
 
-## création du blob storage 
-une fois connecter à azure ,  cherchez storage ou  stockage dans la barre de recherche  puis cliquez sur "comptes de stockage" ou "Storage Account"
+## Création du blob storage
+#### Une fois connecter à azure, cherchez storage ou  stockage dans la barre de recherche  puis cliquez sur "comptes de stockage" ou "Storage Account"
 ![](img/Azure/blob%20sotrage%201.png)
 
-ensuite , renseignez le nom du blob, puis cliquer sur review
+#### Ensuite, renseigner le nom du blob, puis cliquer sur review
 ![](img/Azure/blob%20sotrage%202.png)
 
-enfin cliquer sur créer 
+#### Enfin cliquer sur créer 
 ![](img/Azure/blob%20sotrage%203.png)
 
-nous allons maintenant créer un conteneur dans ce storage account 
-d'abord cliquer sur "containers" puis sur create 
+#### Pour créer un conteneur dans ce storage account, cliquez sur "containers" puis sur `create` 
 ![](img/Azure/create%20container.png)
 
-à droite entrez un nom et sélectionner "blob" dans public accesss level  enfin cliquez sur create 
+#### A droite entrer un nom et sélectionner "blob" dans public accesss level  enfin cliquez sur create 
 ![](img/Azure/container%20creation%202.png) 
 
-ensuite cliquer sur le storage account  et aller dans la section "access key" ou "clé d'accès" puis afficher et copier la clé d'accès 
+#### Ensuite cliquer sur le storage account et aller dans la section "access key" ou "clé d'accès" puis afficher et copier la clé d'accès 
 ![](img/Azure/access%20keys.png)
 
+## Jointure du blob à wordpress 
+### Installation du plugin
+Connecter vous à l'interface d'admin [cf](#accéder-à-wordpress)
 
-
-
-## jointure du blob à wordpress 
-### installation du plugin
-connecter vous à l'interface d'admin [cf](#accéder-à-wordpress)
-
-clliquer sur plugins puis add new 
+Cliquer sur `plugins` puis `add new` 
 
 ![ajouter un nouveau plugin](img/Wordpress/add-new-plugin.jpg)
 
-
-ensuite dans la barre de recherche saisissez "Microsoft Azure Storage for WordPress" puis cliquer sur "Install Now"
+Ensuite dans la barre de recherche saisissez `Microsoft Azure Storage for WordPress` puis cliquer sur `Install Now`
 ![](img/Wordpress/install-plugin.jpg)
 
-cliquez ensuite sur "Activate"
+Cliquer ensuite sur "Activate"
 ![](img/Wordpress/activate.jpg)
-### configuration du plugin 
-on accède à la page de configuration d'azure  en cliquant sur "Settings" pour sur "Microsoft Azure"
+
+### Configuration du plugin 
+On accède à la page de configuration d'azure en cliquant sur `Settings` pour sur `Microsoft Azure`
 ![](img/Wordpress/Azure-Setting.jpg)
 
-dans la partie "Store Account Name"	 renseigner le nom du blob storage créé plus haut 
+Dans la partie `Store Account Name` renseigner le nom du blob storage créé plus haut 
 ![](img/Wordpress/storeaccountName.jpg)
 
-dans la partie "Store Account Key" renseigner le secret généré par azure   
+Dans la partie "Store Account Key" renseigner le secret généré par azure   
 ![](img/Wordpress/Store%20Account%20Key.jpg)
 
-Appuyer sur entrée , puis clickez sur  le container crée précédement 
+Appuyer sur `entrer`, puis cliquez sur le conteneur créé précédemment
 ![](img/Azure/default_container.png)
 
-
-appuyez sur en enter ou cliquez sur "save change" en bas de page 
+Appuyez sur en `Entrer` ou cliquez sur `save change` en bas de page 
 
 ![](img/Azure/Save.png)
-
-
-
