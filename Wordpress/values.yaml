@@ -1,12 +1,14 @@
-service:
-    type:  "NodePort"
+image:
+  debug: True
+persistence:
+  size: "5Gi"
 wordpressUsername : "wordpress"
-wordpressPassword: "P@ssw0rd"
+wordpressPassword: "ChangeME"
 mariadb:
   enabled : false
 externalDatabase:
   host: "galera-mariadb-galera.default.svc.cluster.local"
   port: 3306
   user: "root"
-  password: "P@ssw0rd"
+  password: "ChangeMe"
   database: "wordpress"

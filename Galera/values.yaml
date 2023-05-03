@@ -1,6 +1,7 @@
-
-  # namespacpeOverride : "projet"
-  service:
-    type:  "NodePort"
-  rootUser:
-    password	: "P@ssw0rd"
+rootUser:
+  password: "ChangeME"
+db:
+  name: "wordpress"
+replicaCount: 1    
+persistence:
+  size: "1Gi"

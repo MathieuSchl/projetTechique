@@ -1,12 +1,4 @@
-                                                                                                                                            
-```
-  _                                    _       __ 
- | |                                  | |     /_/ 
- | |__    _ __    ___  __   __   ___  | |_    ___ 
- | '_ \  | '__|  / _ \ \ \ / /  / _ \ | __|  / _ \
- | |_) | | |    |  __/  \ V /  |  __/ | |_  |  __/
- |_.__/  |_|     \___|   \_/    \___|  \__|  \___|
- ```                                                                                                                     
+                                                                                                        
 # Projet techique SupDeVinci DevOps MSI 4-23 DO A : Groupe 1
 
 
@@ -45,7 +37,7 @@ helm version
 - Lancez l'installation de GALERA via la commande suivante : 
 
 ```
-helm install galera oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Galera/values.yaml
+helm install galera oci://registry-1.docker.io/bitnamicharts/mariadb-galera -f ./Galera/values.yaml
 ```
 
 ## Installation WORDPRESS
