@@ -73,18 +73,7 @@ wordpressPassword: "ChangeME"
 helm install wordpress oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Wordpress/values.yaml
 ```
 
-## Installation Minio 
-```shell
-helm install minio oci://registry-1.docker.io/bitnamicharts/minio -f ./Minio/values.yaml
-```
 
-## Paramétrage du port-forward
-
-- Pour utiliser wordpress sur le port 80, lancer la commande :
-
-```shell
-kubectl port-forward --namespace default svc/wordpress 80:80
-```
 
 ## accéder à  wordpress 
 on récupère l'ip externe via la commande 
