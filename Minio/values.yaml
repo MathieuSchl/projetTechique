@@ -1,4 +1,0 @@
-service:
-  type: "NodePort"
-auth:
-  rootPassword: "P@ssw0rd"

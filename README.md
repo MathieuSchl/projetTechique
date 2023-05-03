@@ -73,8 +73,6 @@ wordpressPassword: "ChangeME"
 helm install wordpress oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Wordpress/values.yaml
 ```
 
-
-
 ## accéder à  wordpress 
 on récupère l'ip externe via la commande 
 ```shell
