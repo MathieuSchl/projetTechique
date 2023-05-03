@@ -1,11 +1,16 @@
-                                                                                                        
 # Projet techique SupDeVinci DevOps MSI 4-23 DO A : Groupe 1
 
+# Projet techique SupDeVinci DevOps B2A 2023
 
 ## Pré Requis 
 
 Pour faire les installations, il est nécessaire d'avoir les prérequis suivants :
 
+- Faire un clone du repository :
+```
+https://github.com/MathieuSchl/projetTechique.git
+```
+- On oublie pas de folow et cliquer sur la cloche pour avoir les dernières nouveautés de mathieu ! ;)
 - Avoir un cluster Kubernetes
 - Avoir debian à jour
 
