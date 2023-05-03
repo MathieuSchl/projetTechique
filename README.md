@@ -104,9 +104,49 @@ une fois connecté votre installation wordpress est fonctionelle
 
 
 ## création du blob storage 
-une fois connecter à azure ,  
-##  installation du plugin 
+une fois connecter à azure ,  cherchez storage ou  stockage dans la barre de recherche  puis cliquez sur "comptes de stockage" ou "Storage Account"
+![](img/Azure/blob%20sotrage%201.png)
+
+ensuite , renseignez le nom du blob, puis cliquer sur review
+![](img/Azure/blob%20sotrage%202.png)
+
+enfin cliquer sur créer 
+![](img/Azure/blob%20sotrage%203.png)
+
+ensuite cliquer sur le conteneur et aller dans la section "access key" ou "clé d'accès" puis afficher et copier la clé d'accès 
+![](img/Azure/access%20keys.png)
+
+
+
+## jointure du blob à wordpress 
+### installation du plugin
+connecter vous à l'interface d'admin [cf](#accéder-à-wordpress)
+
 clliquer sur plugins puis add new 
+
 ![ajouter un nouveau plugin](img/Wordpress/add-new-plugin.jpg)
+
+
+ensuite dans la barre de recherche saisissez "Microsoft Azure Storage for WordPress" puis cliquer sur "Install Now"
+![](img/Wordpress/install-plugin.jpg)
+
+cliquez ensuite sur "Activate"
+![](img/Wordpress/activate.jpg)
+### configuration du plugin 
+on accède à la page de configuration d'azure  en cliquant sur "Settings" pour sur "Microsoft Azure"
+![](img/Wordpress/Azure-Setting.jpg)
+
+dans la partie "Store Account Name"	 renseigner le nom du blob storage créé plus haut 
+![](img/Wordpress/storeaccountName.jpg)
+
+dans la partie "Store Account Key" renseigner le secret généré par azure   
+![](img/Wordpress/Store%20Account%20Key.jpg)
+
+Appuyer sur entrée , puis clickez sur "-- Create New Container --"  renseigner le nom du nouveau conteneur et cliquez sur  create 
+
+*Attention :*
+*Ce nom peut contenir seulemnt des lettres minuscules, des chiffres et des traits d'union. Il doit commencer par une lettre ou un chiffre* *Chaque trait d'union doit être précédé et suivi d'un caractère autre qu'un trait d'union. Le nom doit avoir entre 3 et 63 caractères.*
+![](img/Wordpress/create%20conteneur.jpg)
+
 
 
