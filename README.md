@@ -6,7 +6,7 @@ Pour faire les installations, il est nécessaire d'avoir les prérequis suivants
 
 - Faire un clone du repository :
 ```
-git clone https://github.com/MathieuSchl/projetTechique.git
+git clone https://github.com/MathieuSchl/projetTechique.git && cd projetTechique/
 ```
 - Avoir un cluster Kubernetes 
 - Avoir debian à jour (uniquement en On-Prem)
@@ -76,7 +76,7 @@ helm install wordpress oci://registry-1.docker.io/bitnamicharts/wordpress -f ./W
 ## accéder à  wordpress 
 on récupère l'ip externe via la commande 
 ```shell
-kubecetl get services wordpress 
+kubectl get services wordpress 
 ```
 ![](img/Azure/get-services.jpg)
 
@@ -102,8 +102,16 @@ ensuite , renseignez le nom du blob, puis cliquer sur review
 enfin cliquer sur créer 
 ![](img/Azure/blob%20sotrage%203.png)
 
-ensuite cliquer sur le conteneur et aller dans la section "access key" ou "clé d'accès" puis afficher et copier la clé d'accès 
+nous allons maintenant créer un conteneur dans ce storage account 
+d'abord cliquer sur "containers" puis sur create 
+![](img/Azure/create%20container.png)
+
+à droite entrez un nom et sélectionner "blob" dans public accesss level  enfin cliquez sur create 
+![](img/Azure/container%20creation%202.png) 
+
+ensuite cliquer sur le storage account  et aller dans la section "access key" ou "clé d'accès" puis afficher et copier la clé d'accès 
 ![](img/Azure/access%20keys.png)
+
 
 
 
@@ -131,11 +139,13 @@ dans la partie "Store Account Name"	 renseigner le nom du blob storage créé pl
 dans la partie "Store Account Key" renseigner le secret généré par azure   
 ![](img/Wordpress/Store%20Account%20Key.jpg)
 
-Appuyer sur entrée , puis clickez sur "-- Create New Container --"  renseigner le nom du nouveau conteneur et cliquez sur  create 
+Appuyer sur entrée , puis clickez sur  le container crée précédement 
+![](img/Azure/default_container.png)
 
-*Attention :*
-*Ce nom peut contenir seulemnt des lettres minuscules, des chiffres et des traits d'union. Il doit commencer par une lettre ou un chiffre* *Chaque trait d'union doit être précédé et suivi d'un caractère autre qu'un trait d'union. Le nom doit avoir entre 3 et 63 caractères.*
-![](img/Wordpress/create%20conteneur.jpg)
+
+appuyez sur en enter ou cliquez sur "save change" en bas de page 
+
+![](img/Azure/Save.png)
 
 
 
