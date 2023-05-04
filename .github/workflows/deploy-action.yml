@@ -3,6 +3,8 @@ on: [push]
 jobs:
   Deploy:
     runs-on: ubuntu-latest
+    env:
+      TEST: ${{ secrets.TEST }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -12,3 +14,8 @@ jobs:
       - name: Run ansible
         run: |
           ansible --version
+      - name: Run ansible
+        run: |
+          ansible --version
+      - name: Afficher la valeur du secret
+        run: echo $TEST
