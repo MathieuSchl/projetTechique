@@ -17,8 +17,8 @@ cd liqo
 make ctl
 ```
 
-- Installer liqo avec liqoctl
 
+- Mise en place des variables d'environement
 ```sh
 # The resource group where the cluster is created
 export AKS_RESOURCE_GROUP=your-resource-group
@@ -27,7 +27,7 @@ export AKS_RESOURCE_NAME=your-cluster-name
 # The name of the subscription associated with the AKS cluster
 export AKS_SUBSCRIPTION_ID=your-subscription-name
 ```
-
+- Installer liqo avec liqoctl
 ```sh
 ./liqoctl install aks --resource-group-name "${AKS_RESOURCE_GROUP}" \
         --resource-name "${AKS_RESOURCE_NAME}" \
