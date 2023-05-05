@@ -43,10 +43,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
-output "ip" {
-  value = tomap({
-    for name, vm in azurerm_network_interface.main : name => vm.private_ip_address
-  })
+output "virtual_machine_id" {
+  value = azurerm_kubernetes_cluster.aks.ip_address
 }
 
 terraform {
