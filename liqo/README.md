@@ -33,6 +33,7 @@ export AKS_SUBSCRIPTION_ID=your-subscription-name
 ```
 
 - Générer un peer command sur les deux clusters:
+```sh
 ./liqoctl --context=provider generate peer-command
 ```
 - La dernière commande devrait en générer une autre qu'on va utiliser sur l'autre cluster : 
