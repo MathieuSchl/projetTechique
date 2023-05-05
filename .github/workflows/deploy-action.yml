@@ -20,7 +20,7 @@ jobs:
           echo 'client_secret   = "$CLIENT_SECRET"' >> terraform.tfvars
           az login -u $USERNAME -p $PASSWORD
           terraform init
-          terraform import azurerm_resource_group.aks /subscriptions/$RESOURCE_GROUP_NAME/resourceGroups/$RESOURCE_GROUP_NAME
+          terraform state pull
           terraform apply --auto-approve
       - name: Run ansible
         run: |
