@@ -8,6 +8,8 @@ jobs:
       PASSWORD: ${{ secrets.TERRAFORM_PASSWORD }}
       CLIENT_ID: ${{ secrets.TERRAFORM_CLIENT_ID }}
       CLIENT_SECRET: ${{ secrets.TERRAFORM_CLIENT_SECRET }}
+      SUBSCRIPTION_ID: ${{ secrets.TERRAFORM_SUBSCRIPTION_ID }}
+      RESOURCE_GROUP_NAME: ${{ secrets.TERRAFORM_RESOURCE_GROUP_NAME }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -18,6 +20,7 @@ jobs:
           echo 'client_secret   = "$CLIENT_SECRET"' >> terraform.tfvars
           az login -u $USERNAME -p $PASSWORD
           terraform init
+          terraform import azurerm_resource_group.aks /subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP_NAME
           terraform apply --auto-approve
       - name: Run ansible
         run: |
