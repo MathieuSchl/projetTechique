@@ -1,4 +1,7 @@
 provider "azurerm" {
+  client_id     = var.client_id
+  client_secret = var.client_secret
+  
   features {
     resource_group {
       prevent_deletion_if_contains_resources = false
@@ -31,11 +34,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
     vm_size         = "Standard_D2_v2"
   }
 
-  service_principal {
-    client_id     = var.client_id
-    client_secret = var.client_secret
+  identity {
+    type = "SystemAssigned"
   }
-
+  
   tags = {
     Environment = "Production"
   }

@@ -4,13 +4,17 @@ jobs:
   Deploy:
     runs-on: ubuntu-latest
     env:
-      TEST: ${{ secrets.TEST }}
+      USERNAME: ${{ secrets.TERRAFORM_USERNAME }}
+      PASSWORD: ${{ secrets.TERRAFORM_PASSWORD }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: Run Terraform
         run: |
-          terraform --version
+          cd terraform
+          az login -u $USERNAME -p $PASSWORD
+          terraform init
+          terraform apply --auto-approve
       - name: Run ansible
         run: |
           ansible --version
