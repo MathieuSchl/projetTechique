@@ -14,8 +14,3 @@ jobs:
       - name: Run ansible
         run: |
           ansible --version
-      - name: Run ansible
-        run: |
-          ansible --version
-      - name: Afficher la valeur du secret
-        run: echo $TEST
