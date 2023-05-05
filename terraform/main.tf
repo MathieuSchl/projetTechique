@@ -43,6 +43,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
+output "ip" {
+  value = tomap({
+    for name, vm in azurerm_network_interface.main : name => vm.private_ip_address
+  })
+}
+
 terraform {
   backend "azurerm" {
     resource_group_name = "MC_my-aks-resource-group_my-aks-cluster_westeurope"
