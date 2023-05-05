@@ -1,4 +1,4 @@
-# Projet techique SupDeVinci DevOps MSI 4-23 DO A : Groupe 1
+# Projet techique SupDeVinci DevOps MSI 4-23 DO A : Groupe 1  , Partie 2 
 
 ## Pré Requis 
 
@@ -8,137 +8,115 @@ Pour faire les installations, il est nécessaire d'avoir les prérequis suivants
 ```
 git clone https://github.com/MathieuSchl/projetTechique.git && cd projetTechique/
 ```
-- Avoir un cluster Kubernetes 
-- Avoir debian à jour (uniquement en On-Prem)
+- Avoir au moins deux  cluster Kubernetes Azure , dans des régions différente   
+- Avoir helm et jq d'installés, 
 
-```sh
-sudo apt-get update
+/!\ pour la simplicité de ce guide , les deux cluster azure seront nommés cluster1 et cluster2
+
+
+## instalation de cert manager  ( cluster1 et cluster2)
+admiralty a besoin de cert-amanger ( sur les deux clusters ) pour pouvoir fonctionner , procéder comme suit pour installer 
+
+on ajoute le repo helm de jetstack 
+```
+helm repo add jetstack https://charts.jetstack.io
+```
+vous devriez voir cette sortie 
+
+![](img/Admiralty/Cert-manager/helm_add_repo.jpg)
+
+ou celle ci 
+
+![](img/Admiralty/Cert-manager/repo_exisiting.png)
+
+on va ensuite mettre à jour les repo helm 
+```
+helm repo update
 ```
 
-## Installation de HELM (PAS NECESSAIRE SUR AZURE)
+a la fin de l'update ce message apparait 
 
-- Installer le paquet `snapd` en exécutant la commande suivante : 
+![](img/Admiralty/update_helm_repo.jpg)
 
-```sh
-sudo apt-get install snapd
+nous allons maintenant procéder à l'installation  de cert-manager 
+
+attention : 
+- il ne faut pas avoir de namespace "cert-manager" sur vôtre cluster  ( vérifier avec ``` kubectl get namespaces```)
+- il ne faut pas qu'un release helm nommée "cert-mamanger" existe  ( vérifier avec ``` helm list -A```)
+
+on install cert-manager avec la commande suivante  (cela peut prendre plus ou moins de temps en fonction de la puissance du cluster )
+```
+helm install cert-manager jetstack/cert-manager      --namespace cert-manager --create-namespace     --version v1.11.0 --set installCRDs=true     --wait 
+``` 
+si tout vas bien ce message appairait
+
+![](img/Admiralty/Cert-manager/notes.png)
+à ce stade, cert-manager est oppérationel.
+
+
+## instalation d'admirality ( cluster1 et cluster2)
+
+ici encore il faut ajouter le repo helm 
+```
+helm repo add admiralty https://charts.admiralty.io
+```
+puis on mets à jour les repos
+
+```
+helm repo update
 ```
 
-- Installer Helm en utilisant la commande suivante : 
 
-```sh
-sudo snap install helm --classic
+nous allons maintenant procéder à l'installation  de Admiralty 
+
+attention : 
+- cert-manager doit être installé (  vérifier avec ``` helm list -n cert-manager ```)) si ce n'est pas le cas, suivre cette [procédure](#instalation-de-cert-manager--cluster1-et-cluster2)  
+- il ne faut pas avoir de namespace "admiralty" sur vôtre cluster  ( vérifier avec ``` kubectl get namespaces```)
+- il ne faut pas qu'un release helm nommée "cert-mamanger" existe  ( vérifier avec ``` helm list -A```)
+
+on lance  l'install d'amdiralty avec la commande suivante :
 ```
-
-- Pour vérifier que Helm a été correctement installé, exécutez la commande suivante pour afficher la version de Helm : 
-
-```sh
-helm version
+helm install admiralty admiralty/multicluster-scheduler --namespace admiralty --create-namespace  --version 0.15.1 --wait 
 ```
-## Installation GALERA
-### Edition du fichier values (Gallera)
-Le fichier `values` est dans le dossier `gallera/values.yaml`
-A la ligne 2, renseigner le mot de passe voulue pour l'utilisateur root de la DB :
-```yaml
-    rootUser:
-      password: "ChangeME"
+si tout vas bien , le message suivant apprait 
+
+![](img/Admiralty/notes.png)
+
+à ce stade Admiralty est installé  nous pouvons maintenant passé à sa configuration 
+
+
+## configuration d'admiralty 
+### préambule 
+À ce stade , nous  allons installer une achitecture type master/slave , le cluster1 sera le master  et le cluster2 le slave
+cela veut dire que cluster1 pourra répartir des pods sur les deux cluster , le custer 2 lui ne pourra pas gérer la répartition
+
+### génération d'un compte  de service  ( Cluster2 uniquement)
+
+nous allons créer un compte de service sur le cluster2 qui permettra à notre master (CLuster1) d'envoyer les pods 
+
+pour cela on créer un compte de service  
 ```
-
-- Lancer l'installation de GALERA via la commande suivante : 
-
-```shell
-helm install galera oci://registry-1.docker.io/bitnamicharts/mariadb-galera -f ./Galera/values.yaml
+kubectl create serviceaccount cluster2
 ```
+si tout vas bien ce message apparait , 
 
-Vous devriez voir un pod en running au bout de quelques minutes 
-```shell
-kubectl get pods 
+![](img/Admiralty/SA_Cluster2.png)
+
+puis on genère un TOKEN pour ce SA  (/!\\pas d'output pour cette commande)
 ```
-![](img/Galera/pod.jpg)
-
-## Installation WORDPRESS
-
-### Edition du fichier values (Wordpress)
-
-Le fichier `values` est dans le dossier `Wordpress/values.yaml`
-A la ligne 11 , renseigner le mot de passe que nous avons spécifié plus haut pour [gallera](#Edition-du-fichier-values-gallera)
-```yaml
-  password: "ChangeMe"
+  TOKEN=$(kubectl create token cluster2)
 ```
-Puis a la ligne 4, renseigner le mot de passe qui sera utilisé pour se connecter à l'interface admin de wordpress 
-```yaml
-wordpressPassword: "ChangeME"
+nous de vons maintenant récupérer l'ip de l'api de KUB , sur Azure , il faut regarder dans la section networking 
+![](img/Admiralty/ip.png)
+
+on export cette IP dans une variable IP 
 ```
-
-- Lancer la commande suivante pour lancer l'installation de WordPress :
-
-```shell
-helm install wordpress oci://registry-1.docker.io/bitnamicharts/wordpress -f ./Wordpress/values.yaml
+IP=cluster.[...].io
 ```
-
-## Accéder à  wordpress 
-On récupère l'ip externe via la commande 
-```shell
-kubectl get services wordpress 
+enfin on génère une config qu'on enverra à CLuster1  (/!\\ le port 443 peut différer en fonction des providers )
 ```
-![](img/Azure/get-services.jpg)
-
-#### En vous connectant à l'adresse, vous devriez avoir accès à la page suivante :
-![](img/Wordpress/homePage.jpg)
-
-#### Vous pouvez aussi vous connecter à l'interface  d'admin en  utilisant `http://$ip-externe/admin`, ensuite utiliser les credentials que l'on a renseigné plutôt
-![](img/Wordpress/Admin.jpg)
-
-#### Une fois connecté, votre installation Wordpress est fonctionnelle
-
-![](img/Wordpress/dahsboard.jpg)
-
-
-## Création du blob storage
-#### Une fois connecter à azure, cherchez storage ou  stockage dans la barre de recherche  puis cliquez sur `comptes de stockage` ou `Storage Account`
-![](img/Azure/blob%20sotrage%201.png)
-
-#### Ensuite, renseigner le nom du blob, puis cliquer sur review
-![](img/Azure/blob%20sotrage%202.png)
-
-#### Enfin cliquer sur créer 
-![](img/Azure/blob%20sotrage%203.png)
-
-#### Pour créer un conteneur dans ce storage account, cliquez sur `containers` puis sur `create` 
-![](img/Azure/create%20container.png)
-
-#### A droite entrer un nom et sélectionner `blob` dans public accesss level  enfin cliquez sur create 
-![](img/Azure/container%20creation%202.png) 
-
-#### Ensuite cliquer sur le storage account et aller dans la section `access key` ou `clé d'accès` puis afficher et copier la clé d'accès 
-![](img/Azure/access%20keys.png)
-
-## Jointure du blob à wordpress 
-### Installation du plugin
-Connecter vous à l'interface d'admin [cf](#accéder-à-wordpress)
-
-Cliquer sur `plugins` puis `add new` 
-
-![ajouter un nouveau plugin](img/Wordpress/add-new-plugin.jpg)
-
-Ensuite dans la barre de recherche saisissez `Microsoft Azure Storage for WordPress` puis cliquer sur `Install Now`
-![](img/Wordpress/install-plugin.jpg)
-
-Cliquer ensuite sur `Activate`
-![](img/Wordpress/activate.jpg)
-
-### Configuration du plugin 
-On accède à la page de configuration d'azure en cliquant sur `Settings` pour sur `Microsoft Azure`
-![](img/Wordpress/Azure-Setting.jpg)
-
-Dans la partie `Store Account Name` renseigner le nom du blob storage créé plus haut 
-![](img/Wordpress/storeaccountName.jpg)
-
-Dans la partie `Store Account Key` renseigner le secret généré par azure   
-![](img/Wordpress/Store%20Account%20Key.jpg)
-
-Appuyer sur `entrer`, puis cliquez sur le conteneur créé précédemment
-![](img/Azure/default_container.png)
-
-Appuyez sur en `Entrer` ou cliquez sur `save change` en bas de page 
-
-![](img/Azure/Save.png)
+"  CONFIG=$(kubectl config view \
+    --minify --raw --output json | \
+    jq '.users[0].user={token:"'$TOKEN'"} | .clusters[0].cluster.server="https://'$IP':443"')
+"
+```
