@@ -115,10 +115,10 @@ IP=cluster.[...].io
 ```
 enfin on génère une config qu'on enverra à CLuster1  (/!\\ le port 443 peut différer en fonction des providers )
 ```
-"  CONFIG=$(kubectl config view \
+  CONFIG=$(kubectl config view \
     --minify --raw --output json | \
     jq '.users[0].user={token:"'$TOKEN'"} | .clusters[0].cluster.server="https://'$IP':443"')
-"
+
 ```
 
 puis copier dans le presse papier la  valeur de $CONFIG
