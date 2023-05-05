@@ -6,12 +6,16 @@ jobs:
     env:
       USERNAME: ${{ secrets.TERRAFORM_USERNAME }}
       PASSWORD: ${{ secrets.TERRAFORM_PASSWORD }}
+      CLIENT_ID: ${{ secrets.TERRAFORM_CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.TERRAFORM_CLIENT_SECRET }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: Run Terraform
         run: |
           cd terraform
+          echo 'client_id       = "$CLIENT_ID"' > terraform.tfvars
+          echo 'client_secret   = "$CLIENT_SECRET"' >> terraform.tfvars
           az login -u $USERNAME -p $PASSWORD
           terraform init
           terraform apply --auto-approve
