@@ -26,7 +26,7 @@ export AKS_RESOURCE_GROUP=your-resource-group
 export AKS_RESOURCE_NAME=your-cluster-name
 # The name of the subscription associated with the AKS cluster
 export AKS_SUBSCRIPTION_ID=your-subscription-name
-```sh
+```
 
 ```sh
 ./liqoctl install aks --resource-group-name "${AKS_RESOURCE_GROUP}" \
