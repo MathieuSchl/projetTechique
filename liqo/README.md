@@ -16,9 +16,7 @@ git clone https://github.com/liqotech/liqo.git
 cd liqo
 make ctl
 ```
-
-
-- Mise en place des variables d'environement
+- Mise en place des variables d'environement:
 ```sh
 # The resource group where the cluster is created
 export AKS_RESOURCE_GROUP=your-resource-group
@@ -27,15 +25,17 @@ export AKS_RESOURCE_NAME=your-cluster-name
 # The name of the subscription associated with the AKS cluster
 export AKS_SUBSCRIPTION_ID=your-subscription-name
 ```
-- Installer liqo avec liqoctl
+- Installer liqo avec liqoctl:
 ```sh
 ./liqoctl install aks --resource-group-name "${AKS_RESOURCE_GROUP}" \
         --resource-name "${AKS_RESOURCE_NAME}" \
         --subscription-name "${AKS_SUBSCRIPTION_ID}"
-Generate peer command on both clusters and type the command you get:
+```
+
+- Générer un peer command sur les deux clusters:
 ./liqoctl --context=provider generate peer-command
 ```
-La dernière commande devrait en générer une autre comme celle-là : 
+- La dernière commande devrait en générer une autre qu'on va utiliser sur l'autre cluster : 
 
 ```sh
 ./liqoctl peer out-of-band <cluster-name> --auth-url <auth-url> \
