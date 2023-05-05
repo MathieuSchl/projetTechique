@@ -45,7 +45,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
 terraform {
   backend "azurerm" {
-    resource_group_name = "my-aks-resource-group"
+    resource_group_name = "MC_my-aks-resource-group_my-aks-cluster_westeurope"
     storage_account_name = "tfstateforterraform"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
