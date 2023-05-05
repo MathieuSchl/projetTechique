@@ -20,7 +20,13 @@ make ctl
 - Installer liqo avec liqoctl
 
 ```sh
-liqoctl install aks --resource-group-name "${AKS_RESOURCE_GROUP}" \
+# The resource group where the cluster is created
+export AKS_RESOURCE_GROUP=your-resource-group
+# The name of AKS cluster resource on Azure
+export AKS_RESOURCE_NAME=your-cluster-name
+# The name of the subscription associated with the AKS cluster
+export AKS_SUBSCRIPTION_ID=your-subscription-name
+./liqoctl install aks --resource-group-name "${AKS_RESOURCE_GROUP}" \
         --resource-name "${AKS_RESOURCE_NAME}" \
         --subscription-name "${AKS_SUBSCRIPTION_ID}"
 Generate peer command on both clusters and type the command you get:
