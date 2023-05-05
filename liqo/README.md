@@ -5,7 +5,7 @@
 ### Pré Requis 
 
 - Avoir deux clusters kubernetes
-- Avoir go d'installer sur chacun des clusters
+- Avoir go d'installé sur chacun des clusters
 
 ### Installation
 
