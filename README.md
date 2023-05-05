@@ -163,7 +163,7 @@ kubectl get nodes
 
 également on peut déclarer une target  qui  cible le cluster1 en lui même , cela permet de faire toruner des pods sur cluster1 en plus gérer l'orchestration (optionel)
 ```
-cat <<EOF | kubectl apply -f 
+cat <<EOF | kubectl apply -f -
 apiVersion: multicluster.admiralty.io/v1alpha1
 kind: ClusterTarget
 metadata:
