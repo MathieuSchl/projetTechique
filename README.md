@@ -138,11 +138,6 @@ on va maintenant créer un secret pour avoir accéder à cluster2 depuis cluster
 ```
 kubectl  create secret generic cluster2     --from-literal=config="$CONFIG"
 ```
-a ce stade,   un nouveau noeud devrait apparaitre sur  Cluster1 
-
-```
-kubectl get nodes 
-```
 
 maintenant on va déclarer la target  cluster2 sur cluster1, cela permet de  dire à cluster1  qu'il peut envoyer des pods sur le second cluster (/!\\ ici nous avons mis une target qui aotorise sur tous les namespaces, pour cibler un namespace en particulier , suiver ce [guide](https://admiralty.io/docs/operator_guide/scheduling) )
 ```
@@ -157,12 +152,19 @@ spec:
 EOF
 ```
 
+a ce stade,   un nouveau noeud devrait apparaitre sur  Cluster1 
+
+```
+kubectl get nodes 
+```
+
 
 ####  répartir la charge sur  cluster1
 
 également on peut déclarer une target  qui  cible le cluster1 en lui même , cela permet de faire toruner des pods sur cluster1 en plus gérer l'orchestration (optionel)
 ```
-cat <<EOF | kubectl apply -f apiVersion: multicluster.admiralty.io/v1alpha1
+cat <<EOF | kubectl apply -f 
+apiVersion: multicluster.admiralty.io/v1alpha1
 kind: ClusterTarget
 metadata:
   name: this-cluster
