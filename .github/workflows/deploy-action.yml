@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Run Terraform
         run: |
+          exit 0
           cd terraform
           echo 'client_id       = "$CLIENT_ID"' > terraform.tfvars
           echo 'client_secret   = "$CLIENT_SECRET"' >> terraform.tfvars
@@ -22,6 +23,3 @@ jobs:
           terraform init
           terraform state pull
           terraform apply --auto-approve
-      - name: Run ansible
-        run: |
-          ansible --version

@@ -43,10 +43,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
-output "virtual_machine_id" {
-  value = azurerm_kubernetes_cluster.aks.ip_address
-}
-
 terraform {
   backend "azurerm" {
     resource_group_name = "MC_my-aks-resource-group_my-aks-cluster_westeurope"
